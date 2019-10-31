@@ -3,12 +3,15 @@ import logo from './logo.svg';
 import { connect } from "react-redux"
 import './App.css';
 
-function App() {
+import { getName } from './appAction'
+
+function App(props) {
 
   const [name, setName] = useState("")
 
   const handleChange = (e) => {
     setName(e.target.value)
+    props.handleName(e.target.value)
   }
 
   return (
@@ -32,18 +35,23 @@ function App() {
           value={name}
           onChange={handleChange}
           />
-          { name }
+          <p>Data from Redux: { props.name }</p>
+          <p>Data from State: { name }</p>
       </header>
     </div>
   );
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    handleName: name => dispatch(getName(name))
+  }
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    name: state.app.name
+  }
 }
 
 export default connect(mapStateToProps,  mapDispatchToProps)(App);
