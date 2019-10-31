@@ -1,8 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
+import { connect } from "react-redux"
 import './App.css';
 
 function App() {
+
+  const [name, setName] = useState("")
+
+  const handleChange = (e) => {
+    setName(e.target.value)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,9 +26,24 @@ function App() {
         >
           Learn React
         </a>
+        <input 
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleChange}
+          />
+          { name }
       </header>
     </div>
   );
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {}
+}
+
+const mapStateToProps = state => {
+  return {}
+}
+
+export default connect(mapStateToProps,  mapDispatchToProps)(App);
